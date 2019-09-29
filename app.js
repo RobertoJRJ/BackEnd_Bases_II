@@ -5,8 +5,11 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 //RUTAS
+var BasesDatosRouter = require('./controllers/BasesDatosController');
 var indexRouter = require('./controllers/indexController');
 var loginRouter = require('./controllers/loginController');
+var diskRouter = require('./controllers/diskController');
+
 
 var app = express()
 
@@ -29,5 +32,9 @@ app.use((req, res, next) => {
 app.use('/',indexRouter);
 //login
 app.use('/login', loginRouter);
+//Procedmientos para el disco
+app.use('/disk', diskRouter);
+//Procedmientos para las bases de datos
+app.use('/BasesDatos', BasesDatosRouter);
 
 module.exports = app;

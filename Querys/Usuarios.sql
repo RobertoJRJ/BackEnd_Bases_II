@@ -1,29 +1,53 @@
---DROP TABLE Usuarios
-CREATE TABLE Usuarios
-(
-	usuario			VARCHAR(50) PRIMARY KEY NOT NULL,
-	contraseña		VARCHAR(20) NOT NULL,
-	direccion_ip	VARCHAR(15) CHECK(direccion_ip LIKE '%_%.%_%.%_%.%_%' AND direccion_ip NOT LIKE '%.%.%.%.%' AND 
-										(ParseName(direccion_ip, 4) BETWEEN 0 AND 255) 
-										AND (ParseName(direccion_ip, 3) BETWEEN 0 AND 255) 
-										AND (ParseName(direccion_ip, 2) BETWEEN 0 AND 255) 
-										AND (ParseName(direccion_ip, 1) BETWEEN 0 AND 255)) NOT NULL,
-	puerto			INT NOT NULL
-)
-
-SELECT * FROM Usuarios;
-go
-CREATE PROCEDURE Agregar_Usuario
-@usuario VARCHAR(50), 
-@contraseña VARCHAR(20), 
-@direccion_ip VARCHAR(15), 
-@puerto INT
-AS
-BEGIN
-	INSERT INTO Usuarios(usuario, contraseña, direccion_ip, puerto)
-	VALUES (@usuario, @contraseña, @direccion_ip, @puerto)
-END
-
-EXECUTE Agregar_Usuario @usuario = 'roberto', @contraseña = '123', @direccion_ip = '126.123.64.7', @puerto = 5
-go
-	
+--DROP LOGIN [Usuario1]
+--DROP USER [Usuario1]
+USE [master]
+GO
+CREATE LOGIN [Usuario1] WITH PASSWORD=N'pass123' MUST_CHANGE, DEFAULT_DATABASE=[master], CHECK_EXPIRATION=ON, CHECK_POLICY=ON
+GO
+USE [Prueba]
+GO
+CREATE USER [Usuario1] FOR LOGIN [Usuario1]
+GO
+USE [Prueba]
+GO
+ALTER ROLE [db_accessadmin] ADD MEMBER [Usuario1]
+GO
+USE [Prueba]
+GO
+ALTER ROLE [db_backupoperator] ADD MEMBER [Usuario1]
+GO
+USE [Prueba]
+GO
+ALTER ROLE [db_datareader] ADD MEMBER [Usuario1]
+GO
+USE [Prueba]
+GO
+ALTER ROLE [db_datawriter] ADD MEMBER [Usuario1]
+GO
+USE [Prueba]
+GO
+ALTER ROLE [db_ddladmin] ADD MEMBER [Usuario1]
+GO
+USE [Prueba]
+GO
+ALTER ROLE [db_denydatareader] ADD MEMBER [Usuario1]
+GO
+USE [Prueba]
+GO
+ALTER ROLE [db_denydatawriter] ADD MEMBER [Usuario1]
+GO
+USE [Prueba]
+GO
+ALTER ROLE [db_owner] ADD MEMBER [Usuario1]
+GO
+USE [Prueba]
+GO
+ALTER ROLE [db_securityadmin] ADD MEMBER [Usuario1]
+GO
+USE [master]
+GO
+ALTER USER [Usuario1] WITH DEFAULT_SCHEMA=[dbo]
+GO
+USE [master]
+GO
+ALTER ROLE [db_owner] ADD MEMBER [Usuario1]

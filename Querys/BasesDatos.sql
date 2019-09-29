@@ -1,0 +1,25 @@
+-- CREATE PROCEDURE Crear_Base_de_Datos
+-- @NombreDB As VARCHAR(75),
+-- @Nombre As VARCHAR(75),
+-- @Ubicacion As VARCHAR(75),
+-- @Tamaño As INTEGER,
+-- @Cresimiento As INTEGER,
+-- @Medida1 As VARCHAR(5),
+-- @Medida2 As VARCHAR(5),
+-- @Resultado AS BIT OUTPUT
+-- AS
+-- BEGIN
+-- 	CREATE DATABASE roberto
+-- 	ON PRIMARY 
+-- 	( 
+-- 		NAME = N@Nombre, 
+-- 		FILENAME = N@Ubicacion, 
+-- 		SIZE = @Tamaño@Medida1, 
+-- 		FILEGROWTH = @Cresimiento@Medida2 
+-- 	)
+	
+-- 	SET @Resultado = 1;
+-- END
+-- go
+--DECLARE @Resultado BIT 
+--execute Crear_Base_de_Datos @Resultado
