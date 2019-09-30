@@ -1,3 +1,21 @@
+//Gráfico
+
+var express = require('express');
+var appGrafico = express();
+var cors = require('cors');
+
+// Gráfico
+
+appGrafico.use(cors());
+
+appGrafico.get('/', function (req, res) {
+    res.send({ data: Math.floor(Math.random() * (1000 - 1) + 1), code: 200, error: false });
+});
+
+appGrafico.listen(3000, function () {
+  console.log('API inicializada en el puerto 3000');
+});
+
 //Requerimientos de un archivo js llamdo app.js donde tenemos otras configuraciones
 var app = require('./app');
 var debug = require('debug')('sgabackend:server');
