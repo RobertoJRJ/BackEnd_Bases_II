@@ -1,8 +1,9 @@
+--DROP PROCEDURE Ver_BasesDatos
 CREATE PROCEDURE Ver_BasesDatos
 @Resultado AS BIT OUTPUT
 AS
 BEGIN TRY
-	SELECT name
+	SELECT name, database_id
 	FROM sys.databases ;
 END TRY
 BEGIN CATCH
