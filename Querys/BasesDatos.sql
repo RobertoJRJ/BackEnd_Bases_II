@@ -1,25 +1,18 @@
--- CREATE PROCEDURE Crear_Base_de_Datos
--- @NombreDB As VARCHAR(75),
--- @Nombre As VARCHAR(75),
--- @Ubicacion As VARCHAR(75),
--- @Tamaño As INTEGER,
--- @Cresimiento As INTEGER,
--- @Medida1 As VARCHAR(5),
--- @Medida2 As VARCHAR(5),
--- @Resultado AS BIT OUTPUT
--- AS
--- BEGIN
--- 	CREATE DATABASE roberto
--- 	ON PRIMARY 
--- 	( 
--- 		NAME = N@Nombre, 
--- 		FILENAME = N@Ubicacion, 
--- 		SIZE = @Tamaño@Medida1, 
--- 		FILEGROWTH = @Cresimiento@Medida2 
--- 	)
-	
--- 	SET @Resultado = 1;
--- END
--- go
+--DROP PROCEDURE Crear_BasesDatos
+go
+CREATE PROCEDURE Crear_BasesDatos
+@Nombre AS VARCHAR(50),
+@Resultado AS BIT OUTPUT
+AS
+BEGIN TRY
+	If EXISTS(SELECT name from sys.databases Where name!=@Nombre)
+	Execute ('CREATE DATABASE '+@Nombre)
+	SET @Resultado = 1;
+END TRY
+BEGIN CATCH
+	SET @Resultado = 0;
+END CATCH
+
+GO
 --DECLARE @Resultado BIT 
---execute Crear_Base_de_Datos @Resultado
+--execute Crear_BasesDatos 'Ejemplo',@Resultado;

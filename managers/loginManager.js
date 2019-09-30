@@ -1,5 +1,4 @@
 var sql = require('mssql');
-var connectionSQL = require('../config/connectionSQL');
 
 exports.Login = async (req) => {
     try {
