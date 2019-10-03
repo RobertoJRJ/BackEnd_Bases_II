@@ -25,7 +25,6 @@ exports.verBD = async (req) => {
 }
 
 exports.CrearBD = async (req) => {
-    
     try {
         let config = {
             user: req.User,

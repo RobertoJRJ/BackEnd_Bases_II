@@ -26,9 +26,9 @@ var fileGroupManager = require('../managers/fileGroupManager');
         
     })
 
-    router.get('/consultFileGroup', function(req, res, next){
+    router.post('/verFileGroup', function(req, res, next){
         try{
-            fileGroupManager.CreateFileGroup(req.query).then(
+            fileGroupManager.ShowFileGroup(req.body).then(
                 (data) => {
                     let response = {
                         content: data.recordset,

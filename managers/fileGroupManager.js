@@ -34,8 +34,8 @@ exports.ShowFileGroup = async (req) => {
             database: req.BaseDatos,
             port: req.port
         };
-        let pool = await  execution(config);
-        let result = await pool.request().query("select mf.growth, mf.name, mf.max_size from sys.master_files mf where mf.database_id = "+req.id);            
+        let pool = await sql.connect(config);
+        let result = await pool.request().query("select mf.growth, mf.name, mf.size, mf.max_size from sys.master_files mf where mf.database_id = "+req.id);            
         sql.close();
         console.log(result);
         return result;
