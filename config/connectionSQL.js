@@ -1,7 +1,7 @@
 const config = {
     user: 'sa',
-    password: '2018107560',
-    server: '192.168.1.3',
+    password: '24604763',
+    server: '192.168.0.110',
     database: 'master',
     port: 1433
 };

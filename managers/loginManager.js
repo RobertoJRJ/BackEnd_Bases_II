@@ -1,4 +1,5 @@
 var sql = require('mssql');
+var connectionSQL = require('../config/connectionSQL');
 
 exports.Login = async (req) => {
     try {
@@ -28,9 +29,7 @@ exports.Login = async (req) => {
 exports.Prueba = async (req) => {
     try {
         let pool = await sql.connect(connectionSQL);
-        let result = await pool.request()
-            .output('Resultado', sql.Bit)
-            .execute('PRUEBA');
+        let result = await pool.request().query("select mf.growth, mf.name, mf.max_size from sys.master_files mf where mf.database_id = 8");
             
         sql.close();
         console.log(result);

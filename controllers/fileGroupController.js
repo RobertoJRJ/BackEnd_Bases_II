@@ -1,11 +1,11 @@
 var express = require('express');
 var router = express.Router();
-var diskManager = require('../managers/diskManager');
+var fileGroupManager = require('../managers/fileGroupManager');
 
 
-    router.get('/createDisk', function(req, res, next){
+    router.get('/createFileGroup', function(req, res, next){
         try{
-            diskManager.Login(req.query).then(
+            fileGroupManager.CreateFileGroup(req.query).then(
                 (data) => {
                     let response = {
                         content: data.recordset,
@@ -26,9 +26,9 @@ var diskManager = require('../managers/diskManager');
         
     })
 
-    router.get('/consultDisk', function(req, res, next){
+    router.get('/consultFileGroup', function(req, res, next){
         try{
-            loginManager.Login(req.query).then(
+            fileGroupManager.CreateFileGroup(req.query).then(
                 (data) => {
                     let response = {
                         content: data.recordset,

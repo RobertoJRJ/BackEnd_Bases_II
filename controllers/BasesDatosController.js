@@ -25,9 +25,9 @@ var BasesDatosManager = require('../managers/BasesDatosManager');
         
     })
 
-    router.get('/crearBasesDatos', function(req, res, next){
+    router.post('/crearBasesDatos', function(req, res, next){
         try{
-            BasesDatosManager.CrearBD(req.query).then(
+            BasesDatosManager.CrearBD(req.body).then(
                 (data) => {
                     let response = {
                         content: data.recordset,

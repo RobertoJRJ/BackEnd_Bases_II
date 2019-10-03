@@ -1,6 +1,6 @@
 var sql = require('mssql');
 
-exports.CrearDisk = async (req) => {
+exports.CreateFileGroup = async (req) => {
     try {
         let config = {
             user: req.User,
@@ -10,9 +10,7 @@ exports.CrearDisk = async (req) => {
             port: req.port
         };
         let pool = await sql.connect(config);
-        let result = await pool.request()
-            .output('Resultado', sql.Bit)
-            .execute('Crear_Disco');
+        let result = await pool.request().query("SELECT name, database_id FROM sys.databases");
             
         sql.close();
         console.log(result);
@@ -27,7 +25,7 @@ exports.CrearDisk = async (req) => {
     
 }
 
-exports.ConsultarDisk = async (req) => {
+exports.ShowFileGroup = async (req) => {
     try {
         let config = {
             user: req.User,
@@ -36,13 +34,8 @@ exports.ConsultarDisk = async (req) => {
             database: req.BaseDatos,
             port: req.port
         };
-        let query = "select mf.growth, mf.name, mf.max_size from" +
-                    "sys.master_files mf where mf.database_id" + "8"
-        let pool = await  execution(config, query);
-        let result = await pool.request()
-            .output('Resultado', sql.Bit)
-            .execute('Crear_Disco');
-            
+        let pool = await  execution(config);
+        let result = await pool.request().query("select mf.growth, mf.name, mf.max_size from sys.master_files mf where mf.database_id = "+req.id);            
         sql.close();
         console.log(result);
         return result;

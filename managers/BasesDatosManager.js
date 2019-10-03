@@ -7,13 +7,11 @@ exports.verBD = async (req) => {
             user: req.User,
             password: req.Password,
             server: req.Server,
-            database: req.BaseDatos,
+            database: 'master',
             port: req.port
         };
-        let pool = await sql.connect(connectionSQL);
-        let result = await pool.request()
-            .output('Resultado', sql.Bit)
-            .execute('Ver_BasesDatos');
+        let pool = await sql.connect(config);
+        let result = await pool.request().query("SELECT name, database_id FROM sys.databases");
             
         sql.close();
         console.log(result);
@@ -27,21 +25,20 @@ exports.verBD = async (req) => {
 }
 
 exports.CrearBD = async (req) => {
+    
     try {
         let config = {
             user: req.User,
             password: req.Password,
-            server: 'master',
-            database: req.BaseDatos,
+            server: req.Server,
+            database: 'master',
             port: req.port
         };
-        let pool = await sql.connect(connectionSQL);
-        let result = await pool.request()
-            .input('Nombre', sql.VarChar(50),  req.Nombre)
-            .output('Resultado', sql.Bit)
-            .execute('Ver_BasesDatos');
+        let pool = await sql.connect(config);
+        let result = await pool.request().query("CREATE DATABASE "+req.Name);
             
         sql.close();
+        console.log(req.Name);
         console.log(result);
         return result;
 
